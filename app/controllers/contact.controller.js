@@ -44,6 +44,12 @@ exports.findAllFavorite = (req, res) => {
     });
 };
 
+exports.handleLogin = (req, res) => {
+    res.send({
+        message: "login handler"
+    });
+}
+
 // create and save a new contact
 exports.create = async (req, res, next) => {
     if (!req.body.name) {
@@ -62,7 +68,7 @@ exports.create = async (req, res, next) => {
     }
 };
 
-//retrieve all contacts of a user form the database
+// retrieve all contacts of a user form the database
 exports.findAll = async (req, res, next) => {
     let documents = [];
 
@@ -160,3 +166,22 @@ exports.deleteAll = async (req, res, next) => {
         return next(new ApiError(500, "An error occurred while removing all contacts"));
     }
 };
+
+exports.handleLogin = async (req, res, next) => {
+    let documents = [];
+    try {
+        const contactService = new ContactService(MongoDB.client);
+        let email = req.body.email;
+        if (email) {
+            documents = await contactService.login(email);
+            if (documents.length == 0) {
+                return next(new ApiError(404, `Your email doesn't exist in our system, please try another email`));
+            }
+            return res.send(documents);
+        } else {
+            return next(new ApiError(404, `Email can not be empty`));
+        }
+    } catch (error) {
+        return next(new ApiError(500, "An error occurred while logging"));
+    }
+}

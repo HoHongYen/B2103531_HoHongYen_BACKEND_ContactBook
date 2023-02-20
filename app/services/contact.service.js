@@ -77,6 +77,12 @@ class ContactService {
         const result = await this.Contact.deleteMany({});
         return result.deletedCount;
     }
+
+    async login(email) {
+        return await this.find({
+            email: { $regex: new RegExp(email), $options: "i"},
+        });
+    }
 }
 
 module.exports = ContactService;

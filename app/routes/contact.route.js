@@ -16,6 +16,8 @@ router.route("/:id")
     .put(contacts.update)
     .delete(contacts.delete);
 
+router.route("/login").post(contacts.handleLogin);
+
 module.exports = router;
 
 
