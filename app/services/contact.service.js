@@ -78,6 +78,7 @@ class ContactService {
         return result.deletedCount;
     }
 
+    // for login
     async login(email) {
         return await this.find({
             email: { $regex: new RegExp(email), $options: "i"},
