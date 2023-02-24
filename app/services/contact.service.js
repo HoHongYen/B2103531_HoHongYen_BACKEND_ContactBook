@@ -70,7 +70,7 @@ class ContactService {
     }
 
     async findFavorite() {
-        return this.find({favorite: true});
+        return await this.find({favorite: true});
     }
 
     async deleteAll() {

@@ -44,6 +44,7 @@ exports.findAllFavorite = (req, res) => {
     });
 };
 
+// login
 exports.handleLogin = (req, res) => {
     res.send({
         message: "login handler"
@@ -83,7 +84,7 @@ exports.findAll = async (req, res, next) => {
         }
     } catch (error) {
         return next(
-            new ApiError(500, "An error occured while retrieving contacts")
+            new ApiError(500, "An error occurred while retrieving contacts")
         );
     }
 
